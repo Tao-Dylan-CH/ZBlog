@@ -22,5 +22,8 @@
 ![image](https://github.com/Tao-Dylan-CH/ZBlog/assets/81242825/8daeb6bd-85df-4aad-b408-13bc354d5d6e)
 
 # 管理页面
-![image](https://github.com/Tao-Dylan-CH/ZBlog/assets/81242825/18c2bceb-aab2-4246-9185-d488c27703eb)
+![image](https://github.com/Tao-Dylan-CH/ZBlog/assets/81242825/0615e664-1642-4b0f-990a-6c6f45e73b83)
+
+![image](https://github.com/Tao-Dylan-CH/ZBlog/assets/81242825/5c0b457c-3415-440b-809d-6a7c0c7ca33a)
+
 
