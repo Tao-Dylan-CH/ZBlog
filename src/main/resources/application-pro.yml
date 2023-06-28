@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/zblog?characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+logging:
+  level:
+    root: warn
+    com.zt.blog: info
+  file:
+    name: log/zblog-pro.log
+server:
+  port: 8081
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml

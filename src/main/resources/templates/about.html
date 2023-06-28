@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fregments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <!--移动端更好的适应-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我</title>
+    <link rel="stylesheet" href="../static/dist/semantic/semantic.min.css" th:href="@{/dist/semantic/semantic.min.css}">
+    <link rel="stylesheet" href="../static/css/my.css" th:href="@{/css/my.css}">
+</head>
+<body>
+<!--    导航-->
+<nav th:replace="_fregments :: menu(5)" class="ui segment inverted attached m-padded-mini m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item">ZBlog</h2>
+            <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>归档</a>
+            <a href="#" class="m-item item m-mobile-hide active"><i class="info icon"></i>关于我</a>
+            <div class="m-item right item m-mobile-hide">
+                <div class="ui inverted transparent icon input">
+                    <input type="text" placeholder="搜索...">
+                    <i class="search icon link"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui m-menu m-toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+<!--    中间内容-->
+<div class="m-container m-padded-big">
+    <div class="ui container">
+        <div class="ui stackable grid">
+            <div class="eleven wide column column">
+                <div class="ui teal segment">
+                    <img src="../static/images/me.jpg" alt="me.jpg" class="ui rounded image fluid" th:src="@{/images/me.jpg}">
+                </div>
+            </div>
+            <div class="five wide column">
+                <div class="ui teal segment">
+                    <div class="ui attached top segment">
+                        <h2 class="ui center aligned header">关于我</h2>
+                    </div>
+                    <div class="ui attached segment">
+                        <p class="m-text-thin">Dylan，安徽工程大学，软件工程专业，一个编程的爱好者。</p>
+                        <p class="m-text-thin">热爱编程，喜欢折腾，正在探索高效学习编程技术的方法。</p>
+                    </div>
+                    <div class="ui attached segment">
+                        <div class="ui basic orange left pointing label">编程</div>
+                        <div class="ui basic orange left pointing label">电影</div>
+                        <div class="ui basic orange left pointing label">运动</div>
+                        <div class="ui basic orange left pointing label">音乐</div>
+                    </div>
+                    <div class="ui attached segment">
+                        <div class="ui basic blue left pointing label m-margin-small">Java</div>
+                        <div class="ui basic blue left pointing label m-margin-small">Mysql</div>
+                        <div class="ui basic blue left pointing label m-margin-small">Spring</div>
+                        <div class="ui basic blue left pointing label m-margin-small">SpringBoot</div>
+                        <div class="ui basic blue left pointing label m-margin-small">Redis</div>
+                    </div>
+                    <div class="ui bottom attached segment">
+                        <a href="https://github.com/Tao-Dylan-CH" target="_blank" class="ui github circular icon bottom m-margin-left-small" data-content="https://github.com/Tao-Dylan-CH" data-position="bottom center"><i class="github icon"></i></a>
+
+                        <a href="#" class="ui wechat circular icon bottom m-margin-left-small" ><i class="weixin icon"></i></a>
+
+                        <a href="#" class="ui qq circular icon bottom m-margin-left-small" data-content="3402747477" data-position="bottom center"><i class="qq icon"></i></a>
+                    </div>
+                    <div class="ui wechatQR flowing popup transition hidden">
+                        <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.png}" class="ui rounded image" style="width: 100px"  alt="wechat.jpg"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    页脚-->
+<footer th:replace="_fregments :: footer" class="ui inverted segment  vertical m-padded-large">
+    <div class="ui container center aligned">
+        <div class="ui inverted stackable grid divided">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="../static/images/wechat.jpg" class="ui rounded image" alt="亚里士多得"
+                             style="width: 100px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">博客1</a>
+                    <a href="#" class="item">博客1</a>
+                    <a href="#" class="item">博客1</a>
+                    <a href="#" class="item">博客1</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted">联系我</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">QQ:3402747477</a>
+                    <a href="#" class="item">邮箱:3402747477@qq.com</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted">介绍</h4>
+                <div class="ui inverted link list">
+                    <p class="m-opacity-mini">
+                        这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--    分隔符-->
+        <div class="ui inverted section divider"></div>
+        <div class="m-text-thin m-text-spaced m-opacity-mini">
+            Copyright 2023-now ZBlog Designed by dylan
+        </div>
+    </div>
+
+</footer>
+
+<!--/*/<th:block th:replace="_fregments :: script">/*/-->
+<script rel="script" src="../static/dist/jquery/jquery-3.4.1.min.js"  th:src="@{/dist/jquery/jquery-3.4.1.min.js}"></script>
+<script rel="script" src="../static/dist/semantic/semantic.js" th:src="@{/dist/semantic/semantic.js}"></script>
+<!--/*/</th:block>/*/-->
+
+<script>
+    $('.m-menu.m-toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+    $('.wechat').popup({
+        popup : $('.wechatQR'),
+        on : 'hover',
+        position: 'bottom center'
+    });
+    $('.qq').popup();
+    $('.github').popup();
+</script>
+</body>
+</html>

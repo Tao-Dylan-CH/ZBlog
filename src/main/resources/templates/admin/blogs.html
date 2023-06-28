@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_freg :: head(~{::title})">
+    <meta charset="UTF-8">
+    <!--移动端更好的适应-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客管理</title>
+    <link rel="stylesheet" href="../../static/dist/semantic/semantic.min.css"
+          th:href="@{/dist/semantic/semantic.min.css}">
+    <link rel="stylesheet" href="../../static/css/my.css" th:href="@{/css/my.css}">
+</head>
+<body>
+<!--    导航-->
+<nav th:replace="_freg :: menu(1)" class="ui segment inverted attached m-padded-mini m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item">后台管理</h2>
+            <a href="#" class="m-item item m-mobile-hide active"><i class="home icon"></i>博客</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+            <div class="right menu m-item m-mobile-hide">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <img class="ui avatar image" alt="me.jpg" src="../../static/images/me.jpg"
+                             th:src="@{/images/me.jpg}">
+                        Dylan
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item">修改密码</a>
+                        <a href="#" class="item">个人信息</a>
+                        <a href="#" class="item">注销</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui m-menu m-toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+<!--    二级导航-->
+<div class="ui attached pointing menu">
+    <div class="ui container">
+        <div class="right menu">
+            <a href="#" th:href="@{/admin/blogs/toSave.do}" class="item">发布</a>
+            <a href="#" th:href="@{/admin/blogs}" class="teal item active">列表</a>
+        </div>
+    </div>
+</div>
+<!--    中间内容-->
+<div>
+    <div class="m-container-small m-padded-big">
+        <div class="ui container">
+            <div class="ui  segment form">
+                <input type="hidden" name="pageNo">
+                <div class="inline fields">
+                    <div class="field">
+                        <input type="text" name="title" placeholder="标题">
+                    </div>
+                    <div class="field">
+                        <div class="ui selection dropdown">
+                            <input type="hidden" name="typeId">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">分类</div>
+                            <div class="menu">
+                                <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}"
+                                     th:text="${type.name}">我的故事
+                                </div>
+                                <!--                                <div class="item" data-value="1">学习笔记</div>-->
+                                <!--                                <div class="item" data-value="1">思考感悟</div>-->
+                                <!--                                <div class="item" data-value="1">清单</div>-->
+                                <!--                                <div class="item" data-value="1">生活</div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="recommend" id="recommend" checked>
+                            <label for="recommend">推荐</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <button id="btn-search" class="ui mini teal basic button"><i class="search icon"></i>搜索
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="table-container">
+                <table th:fragment="blogList" class="ui teal compact table">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>标题</th>
+                        <th>类型</th>
+                        <th>推荐</th>
+                        <th>更新时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="blog, it : ${page.records}">
+                        <td th:text="${it.count}">1</td>
+                        <td th:text="${blog.title}">springboot开发指南</td>
+                        <td th:text="${blog.type}">springboot</td>
+                        <td th:text="${blog.recommend ? '是' : '否'}">是</td>
+                        <td th:text="${blog.updateTimeStr}">2023-03-15 11:11</td>
+                        <td>
+                            <a href="#" th:href="@{/admin/blogs/toEdit.do/{id}(id=${blog.id})}"
+                               class="ui mini basic teal button">修改</a>
+                            <a href="#" th:href="@{/admin/blogs/delete/{id}(id=${blog.id})}"
+                               th:title="${blog.title}" class="ui mini basic red button"
+                               onclick="return deleteBtnClick(this);">删除</a>
+                        </td>
+                    </tr>
+                    <!--                <tr>-->
+                    <!--                    <td>1</td>-->
+                    <!--                    <td>springboot开发指南</td>-->
+                    <!--                    <td>springboot</td>-->
+                    <!--                    <td>是</td>-->
+                    <!--                    <td>2023-03-15 11:11</td>-->
+                    <!--                    <td>-->
+                    <!--                        <a href="#" class="ui mini basic teal button">修改</a>-->
+                    <!--                        <a href="#" class="ui mini basic red button">删除</a>-->
+                    <!--                    </td>-->
+                    <!--                </tr>-->
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th colspan="6">
+                            <div class="ui pagination menu mini" th:if="${page.getPages} > 1">
+                                <a onclick="page(this)" class="ui item" th:data-page="${page.current - 1}"
+                                   th:if="${page.hasPrevious}" id="btn-last">上一页</a>
+                                <a onclick="page(this)" class="ui item" th:data-page="${page.current + 1}"
+                                   th:if="${page.hasNext}" id="btn-next">下一页</a>
+                            </div>
+                            <a href="#" th:href="@{/admin/blogs/toSave.do}"
+                               class="ui teal basic button right floated mini">新增</a>
+                        </th>
+                    </tr>
+                    </tfoot>
+                </table>
+
+                <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                    <i class="close icon"></i>
+                    <div class="header'">提示：</div>
+                    <p th:text="${message}">恭喜，操作成功！</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!--    页脚-->
+<footer th:replace="_freg :: footer" class="ui inverted segment  vertical m-padded-large">
+    <div class="ui container center aligned">
+        <div class="ui inverted stackable grid divided">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="../../static/images/wechat.jpg" class="ui rounded image" alt="亚里士多得"
+                             style="width: 100px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">博客1</a>
+                    <a href="#" class="item">博客1</a>
+                    <a href="#" class="item">博客1</a>
+                    <a href="#" class="item">博客1</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted">联系我</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">QQ:3402747477</a>
+                    <a href="#" class="item">邮箱:3402747477@qq.com</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted">介绍</h4>
+                <div class="ui inverted link list">
+                    <p class="m-opacity-mini">
+                        这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--    分隔符-->
+        <div class="ui inverted section divider"></div>
+        <div class="m-text-thin m-text-spaced m-opacity-mini">
+            Copyright 2023-now ZBlog Designed by dylan
+        </div>
+    </div>
+
+</footer>
+
+<!-- /*/<th:block th:replace="_freg :: script">/*/-->
+<script src="../../static/dist/jquery/jquery-3.4.1.min.js" th:src="@{/dist/jquery/jquery-3.4.1.min.js}"></script>
+<script rel="script" src="../../static/dist/semantic/semantic.js" th:src="@{/dist/semantic/semantic.js}"></script>
+<!--/*/</th:block>/*/-->
+
+
+<script>
+    function page(obj) {
+        $("[name='pageNo']").val($(obj).data("page"));
+        load();
+    }
+
+    function load() {
+        $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search", {
+            title: $("[name='title']").val(),
+            typeId: $("[name='typeId']").val(),
+            pageNo: $("[name='pageNo']").val(),
+            recommend: $("[name='recommend']").prop('checked')
+        });
+    }
+
+    function deleteBtnClick(obj) {
+        var title = obj.title;
+        return confirm("确认删除[" + title + "]?");
+    }
+
+    $(function () {
+        $('.m-menu.m-toggle').click(function () {
+            $('.m-item').toggleClass('m-mobile-hide');
+        });
+        $(".dropdown").dropdown({
+            on: "hover"
+        });
+        $('#btn-search').click(function () {
+            $("[name='pageNo']").val(1);
+            load();
+        });
+        //消息提示关闭初始化
+        $('.message .close')
+        .on('click', function () {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fregments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <!--移动端更好的适应-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>归档</title>
+    <link rel="stylesheet" href="../static/dist/semantic/semantic.min.css" th:href="@{/dist/semantic/semantic.min.css}">
+    <link rel="stylesheet" href="../static/css/my.css" th:href="@{/css/my.css}">
+</head>
+<body>
+<!--    导航-->
+<nav th:replace="_fregments :: menu(4)" class="ui segment inverted attached m-padded-mini m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item">ZBlog</h2>
+            <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+            <a href="#" class="m-item item m-mobile-hide active"><i class="clone icon"></i>归档</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
+            <div class="m-item right item m-mobile-hide">
+                <div class="ui inverted transparent icon input">
+                    <input type="text" placeholder="搜索...">
+                    <i class="search icon link"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui m-menu m-toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+<!--    中间内容-->
+<div class="m-container-small m-padded-big">
+    <div class="ui container">
+        <!--        头部-->
+        <div class="ui top attached segment">
+            <div class="ui middle aligned two column grid">
+                <div class="column">
+                    <h3 class="ui teal header">归档</h3>
+                </div>
+                <div class="column right aligned">
+                    共
+                    <h2 class="ui header orange m-text-thin m-inline-block" th:text="${blogCnt}">111</h2>
+                    篇
+                </div>
+            </div>
+        </div>
+        <!--        头部结束-->
+    </div>
+    <!--        一年-->
+    <div class="ui teal segment" th:each="year : ${blogMap.keySet}">
+        <h3 class="ui center aligned header" th:text="${year}">2023</h3>
+        <!--    菜单-->
+        <div class="ui fluid vertical menu">
+            <!--            菜单项-->
+            <a href="#" class="ui item" th:each="blog : ${blogMap.get(year)}" th:href="@{/blog/{id}(id=${blog.id})}">
+                <span>
+                    <i class="ui teal circle icon"></i> <span th:text="${blog.title}">Java内存模型</span>
+                    <span class="ui teal basic left pointing label m-padded-mini" th:text="${#dates.format(blog.updateTime, 'MM-dd')}">9月03日</span>
+                </span>
+                <div class="ui basic orange left pointing label" th:text="${blog.flag}">原创</div>
+            </a>
+        </div>
+    </div>
+    <!--/*-->
+    <div class="ui teal segment">
+        <h3 class="ui center aligned header">2022</h3>
+        <!--    菜单-->
+        <div class="ui fluid vertical menu">
+            <!--            菜单项-->
+            <a href="#" target="_blank" class="ui item">
+                <span>
+                    <i class="ui teal circle icon"></i>Java内存模型
+                    <span class="ui teal basic left pointing label m-padded-mini">9月03日</span>
+                </span>
+                <div class="ui basic orange left pointing label">原创</div>
+            </a>
+            <a href="#" target="_blank" class="ui item">
+                <span>
+                    <i class="ui teal circle icon"></i>你的名字
+                    <span class="ui teal basic left pointing label m-padded-mini">2月03日</span>
+                </span>
+                <div class="ui basic orange left pointing label">转载</div>
+            </a>
+        </div>
+    </div>
+    <!--*/-->
+</div>
+
+<!--    页脚-->
+<footer th:replace="_fregments :: footer" class="ui inverted segment  vertical m-padded-large">
+    <div class="ui container center aligned">
+        <div class="ui inverted stackable grid divided">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="../static/images/wechat.jpg" class="ui rounded image" alt="亚里士多得"
+                             style="width: 100px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">博客1</a>
+                    <a href="#" class="item">博客1</a>
+                    <a href="#" class="item">博客1</a>
+                    <a href="#" class="item">博客1</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted">联系我</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">QQ:3402747477</a>
+                    <a href="#" class="item">邮箱:3402747477@qq.com</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted">介绍</h4>
+                <div class="ui inverted link list">
+                    <p class="m-opacity-mini">
+                        这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--    分隔符-->
+        <div class="ui inverted section divider"></div>
+        <div class="m-text-thin m-text-spaced m-opacity-mini">
+            Copyright 2023-now ZBlog Designed by dylan
+        </div>
+    </div>
+
+</footer>
+
+<!--/*/<th:block th:replace="_fregments :: script">/*/-->
+<script rel="script" src="../static/dist/jquery/jquery-3.4.1.min.js"
+        th:src="@{/dist/jquery/jquery-3.4.1.min.js}"></script>
+<script rel="script" src="../static/dist/semantic/semantic.js" th:src="@{/dist/semantic/semantic.js}"></script>
+<!--/*/</th:block>/*/-->
+
+<script>
+    $('.m-menu.m-toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+</script>
+</body>
+</html>
