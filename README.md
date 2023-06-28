@@ -2,14 +2,16 @@
 个人博客。
 前端和后端。
 根据类型和标签管理博客。
+集成Markdown 编辑器。
 # 技术栈
+- 开发环境: IDEA
 - 数据库 ： Mysql
 - MyBatis Plus
 - MVC : Spring MVC
 - SpringBoot
 - 模板引擎: Thymeleaf
 - UI : Semantic UI
-
+- JQuery
 # 前端页面
 - 首页
 ![image](https://github.com/Tao-Dylan-CH/ZBlog/assets/81242825/cb54f7ba-2edb-410b-9ef6-521ec091d1ab)
