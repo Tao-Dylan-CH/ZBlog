@@ -11,6 +11,7 @@ logging:
     com.zt.blog: debug
   file:
     name: log/zblog-dev.log
-
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
+server:
+  port: 8081
